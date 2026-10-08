@@ -2,3 +2,9 @@
 *.ova
 *.vdi
 *.iso
+*.vmdk
+*.vbox
+*.vbox-prev
+
+.DS_Store
+Thumbs.db

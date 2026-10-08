@@ -1,0 +1,19 @@
+Active Response proof: firewall-drop add/delete cycle
+======================================================
+
+Source: /var/ossec/logs/active-responses.log on ubuntu-victim (192.168.56.102).
+Attacker: 192.168.56.103. Rule 5763 (sshd brute force, MITRE T1110).
+Each 'add' blocks the attacker; each 'delete' ~120s later removes the block.
+
+Block events (time, action):
+
+  2026/10/08 10:45:49  BLOCK ADDED    firewall-drop add 192.168.56.103 (rule 5763)
+  2026/10/08 10:47:50  BLOCK REMOVED  firewall-drop delete 192.168.56.103 (120s timeout)
+  2026/10/08 10:48:00  BLOCK ADDED    firewall-drop add 192.168.56.103 (rule 5763)
+  2026/10/08 10:50:02  BLOCK REMOVED  firewall-drop delete 192.168.56.103 (120s timeout)
+
+Result: with Active Response enabled, Hydra reported 0 valid passwords found
+(see scripts/hydra-run-blocked.txt). The firewall dropped the attacker before
+the correct password in the wordlist could complete.
+
+Note: all activity in an isolated, self-owned lab. No third-party systems targeted.

@@ -1,0 +1,13 @@
+<!--
+  Active Response: block SSH brute-force sources automatically.
+  Added to /var/ossec/etc/ossec.conf on the Wazuh manager.
+  When rule 5763 (sshd brute force) fires, the agent on the
+  targeted host runs firewall-drop (iptables) against the source IP
+  for 120 seconds, then removes the block automatically.
+-->
+<active-response>
+  <command>firewall-drop</command>
+  <location>local</location>
+  <rules_id>5763</rules_id>
+  <timeout>120</timeout>
+</active-response>
